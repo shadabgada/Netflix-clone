@@ -1,11 +1,17 @@
 import React, {useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { selectPlan } from './features/planSlice';
 import "./Nav.css";
+
+
 
 function Nav() {
     const [show, handleShow] = useState(false);
     const history = useHistory();
 
+    const plan = useSelector(selectPlan);
+    
     const transitionNavBar = () => {
         if(window.scrollY>100){
             handleShow(true);
@@ -24,7 +30,7 @@ function Nav() {
             <div className="nav__contents">
 
                 <img 
-                onClick={()=>history.push("/")}
+                onClick={()=>{ plan?history.push("/"):history.push("/profile")} }
                 className="nav__logo"
                 src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
                 alt=""></img>

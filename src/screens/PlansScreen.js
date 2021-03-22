@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { selectUser } from '../features/userSlice';
 import { useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import db from '../firebase';
 import "./PlansScreen.css";
 import { loadStripe } from '@stripe/stripe-js';
+import { buy } from '../features/planSlice';
 
-function PlansScreen() {
+function PlansScreen({planName}) {
 
     const [products, setProducts] =useState([]);
 
     const user = useSelector(selectUser);
 
     const [subscription, setSubscription] = useState(null);
+
+    const dispatch = useDispatch();
 
     useEffect(()=>{
         db.collection("customers")
@@ -28,6 +32,7 @@ function PlansScreen() {
                 })
             })
         })
+
     },[user.uid])
 
     useEffect(()=>{
@@ -48,12 +53,18 @@ function PlansScreen() {
         });
         setProducts(products);
         });
-    }, [])
+
+        console.log(`subscription ${subscription?.role} `)
+        dispatch(buy({
+            plan: subscription?.role
+        }))
+
+    }, [dispatch, subscription?.role])
 
     console.log(products);
     console.log(subscription)
 
-    const loadCheckout = async (priceId) =>{
+    const loadCheckout = async (priceId, plan) =>{
         
         console.log(`priceId: ${priceId} `)
         console.log(`user id ${user.uid}`)
@@ -71,7 +82,6 @@ function PlansScreen() {
             });
             //The above adds sessionId automatically(because of extension)
 
-
             docRef.onSnapshot(async (snap)=>{
 
                 //fetch the added sessionId
@@ -82,14 +92,16 @@ function PlansScreen() {
                 }
 
                 if(sessionId){
-
                     console.log(`session Id ${sessionId}`)
                     const stripe = await loadStripe(
                         "pk_test_51IWxbcSGdA2SwDhWxIamgfiq7it16gxk0WoEkzF8MHedMUHI7gi81Kaod4QkE2O2cu0lZ0agYGmGkSg8hIvSADIm00aXvJVMdf");
                     stripe.redirectToCheckout({sessionId});
-
                 }
             })
+  
+            console.log(`plan: ${plan}`)
+
+            
     };
 
     return (
@@ -116,7 +128,7 @@ function PlansScreen() {
                                 <h6>{productData.description}</h6>
                             </div>
 
-                            <button onClick={()=> !isCurrentPackage && loadCheckout(productData.prices.priceId)}>
+                            <button onClick={()=> !isCurrentPackage && loadCheckout(productData.prices.priceId, productData.name)}>
                                 {isCurrentPackage ? 'Current Package':'Subscribe'}
                             </button>
                         </div>

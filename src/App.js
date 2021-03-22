@@ -38,6 +38,7 @@ function App() {
     //This will run useEffect everytime we have dispatch event
     },[dispatch]);
 
+
   return (
     <div className="app">
      <Router>
@@ -47,7 +48,7 @@ function App() {
         <Switch>
 
           <Route path="/profile">
-            <ProfileScreen/>
+            <ProfileScreen />
           </Route>
 
           <Route exact path="/">

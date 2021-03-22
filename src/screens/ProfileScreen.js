@@ -1,14 +1,19 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { selectPlan } from '../features/planSlice';
 import { selectUser } from '../features/userSlice';
 import { auth } from '../firebase';
 import Nav from '../Nav';
 import PlansScreen from './PlansScreen';
 import "./ProfileScreen.css";
 
-function ProfileScreen() {
+function ProfileScreen({planName}) {
 
     const user = useSelector(selectUser);
+
+    const plan = useSelector(selectPlan)
+  
+    console.log("plan name: "+plan)
     return (
         <div className="profileScreen">
             <Nav />
@@ -26,6 +31,8 @@ function ProfileScreen() {
                         <h2>{user.email}</h2>
                         <div className="profileScreen__plans">
                             <h3>Plans</h3>
+                            
+                            <h4>Current Plan: {(plan?.plan)?(plan.plan):'No plans'}</h4>
 
                             <PlansScreen/>
                             {/* <div className="profileScreen_each_plan">
