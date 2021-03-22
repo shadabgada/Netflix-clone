@@ -20,13 +20,13 @@
 
 Landing Page
 
-![image](1.png)
+![image](01.png)
 
 <br>
 
 Sign In page
 
-![image](2.png)
+![image](02.png)
 
 <br>
 
@@ -42,12 +42,12 @@ Home page
 
 <br>
 
-Profile page
+Payment page
 
 ![image](6.png)
 
 <br>
 
-Payment page
+Profile page
 
 ![image](5.png)
