@@ -33,3 +33,13 @@
 .row__posterLarge{
     max-height: 250px;
 }
+
+.row__posters h5{
+    padding: 7px;
+}
+
+.row__posters p{
+    padding-left: 7px;
+    font-weight: 100;
+    font-size: small;
+}

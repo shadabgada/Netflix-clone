@@ -18,8 +18,36 @@
 
 <br>
 
+Landing Page
+
 ![image](1.png)
 
-<br><br>
+<br>
+
+Sign In page
 
 ![image](2.png)
+
+<br>
+
+Home page
+
+![image](3.png)
+
+<br>
+
+Home page
+
+![image](4.png)
+
+<br>
+
+Profile page
+
+![image](6.png)
+
+<br>
+
+Payment page
+
+![image](5.png)
